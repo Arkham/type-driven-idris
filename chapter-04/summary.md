@@ -123,3 +123,27 @@ upper bound.
 ```
 index : Fin n -> Vect n a -> a
 ```
+
+# Type-driven implementation of an interactive data store
+
+We'll support storing data as Strings in memory, accessed by a numeric
+identifier. It will support:
+- `add : String -> Id`, stores value and returns id
+- `get : Id -> Maybe String`, fetches string identified by id
+- `quit` exits the program
+
+## Summary
+
+- Data types are defined in terms of type constructors and data constructors
+- Enumerated types are defined by listing the data constructors
+- Union types are defined by listing the data constructors, each of which
+  may carry additional information.
+- Generic types are parameterized over some other type.
+- Dependent types can be indexed over any other value. Using them, you can
+  classify a larger family of types into smaller subgroups.
+- They allow safety checks to be guaranteed at compile time, such as
+  guaranteeing that all vector accesses are within bounds.
+- You can write larger programs in type-driven style, creating new data
+  types where appropriate.
+- Interactive programs that involve state can be written with the
+  `replWith` function.
