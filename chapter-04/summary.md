@@ -81,4 +81,45 @@ data Tree elem = Empty
                | Node (Tree elem) elem (Tree elem)
 ```
 
+## Dependent data types
 
+A dependent data type is computed from some other value. In the case of
+`Vect`, the exact type is calculated from the vector's length:
+
+```
+Vect: Nat -> Type -> Type
+```
+
+Let's say we have a data type to represent vehicles (bikes, cars and
+buses), but some operations don't make sense on all values in the type.
+
+```
+data PowerSource = Petrol | Pedal
+data Vehicle : PowerSource -> Type where
+  Bicycle : Vehicle Pedal
+  Car : (fuel : Nat) -> Vehicle Petrol
+  Bus : (fuel : Nat) -> Vehicle Petrol
+```
+
+How about we redefine Vect?
+
+```
+data Vect : Nat -> Type -> Type where
+  Nil : Vect Z a
+  (::) : (x : a) -> (xs : Vect k a) -> Vect (S k) a
+
+%name Vect xs, ys, zs
+```
+
+`Vect` is indexed by its length and parameterized by an element type:
+- A parameter is unchanged across the entire structure. Every element in
+  the vector has the same type.
+- An index may change across a structure. Every subvector has a different
+  length.
+
+Vectors can be indexed using `Fin` numbers, which have a non-inclusive
+upper bound.
+
+```
+index : Fin n -> Vect n a -> a
+```
