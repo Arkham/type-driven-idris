@@ -123,7 +123,7 @@ setSchema store s =
 
 summary : (store : DataStore) -> String
 summary store =
-  Vect.map (items store)
+  "Hi mom"
 
 processInput : DataStore -> String -> Maybe (String, DataStore)
 processInput store input =
